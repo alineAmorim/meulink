@@ -1,10 +1,23 @@
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { FaRegHandPointDown } from "react-icons/fa";
 import { FiLink } from "react-icons/fi";
+import { useState } from "react";
+
 import './home.css';
 import Menu from "../../components/Menu";
+import LinkItem from "../../components/LinkItem";
 
 function Home() {
+
+    const [link, setLink] = useState('');
+    const [showModal, setShowModal] = useState(false)
+
+    function handleShortLink(){
+        // alert('meu link ' + link)
+        setShowModal(true)
+    }
+
+
     return (
         <div className="container-home">
 
@@ -18,14 +31,20 @@ function Home() {
                 <div>
                     <FiLink size={24} color="#FFF"/>
                     <input
-                        type="text"
                         placeholder="Cole seu link aqui..."
+                        value={link}
+                        onChange={ (e) => setLink(e.target.value)}
                     />
                 </div>
-                <button>Encurtar link</button>
+                <button onClick={handleShortLink}>Encurtar link</button>
             </div>
 
             <Menu />
+
+            { showModal && (
+                <LinkItem />
+            )}
+            
 
 
         </div>
