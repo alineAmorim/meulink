@@ -1,20 +1,25 @@
 import './link-item.css'
 import { FiX, FiClipboard } from 'react-icons/fi';
 
-function LinkItem() {
+function LinkItem({ closeModal, content }) {
+    async function copyLink(){
+        await navigator.clipboard.writeText(content.link)
+        alert('copia')
+    }
+
     return (
         <div className='modal-container'>
             <div className='modal-header'>
                 <h2>Link Encurtado</h2>
-                <button>
+                <button onClick={closeModal}>
                     <FiX size={28} color='#000' />
                 </button>
             </div>
             <span>
-                urlInformada
+                {content.long_url}
             </span>
-            <button className='modal-link'>
-                urlEncurtada
+            <button className='modal-link' onClick={copyLink}>
+                {content.link}
                 <FiClipboard size={20} color='#FFF'/>
             </button>
         </div>
