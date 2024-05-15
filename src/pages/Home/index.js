@@ -8,6 +8,7 @@ import Menu from "../../components/Menu";
 import LinkItem from "../../components/LinkItem";
 
 import api from '../../services/api'
+import { saveLink } from "../../services/storeLinks";
 
 function Home() {
 
@@ -22,7 +23,11 @@ function Home() {
                 long_url: link
             })
 
-           setData(response.data);
+           setData(response.data)
+
+           saveLink('@encurtaLink', response.data)
+           setLink()
+
            setShowModal(true)
         } catch {
             alert('erro')
