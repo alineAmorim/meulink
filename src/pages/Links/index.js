@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import './links.css';
-import { FiArrowLeft, FiLink, FiTrash } from 'react-icons/fi';
+import { FiArrowLeft, FiLink, FiTrash, FiExternalLink} from 'react-icons/fi';
+import { FaRegTrashAlt } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+
 
 import { getLinkSave, deleteLink } from '../../services/storeLinks'
 import LinkItem from '../../components/LinkItem'
-import { GiH2O } from 'react-icons/gi';
+
 
 function Links() {
   const [myLinks, setMyLinks] = useState([]);
@@ -42,6 +44,16 @@ function Links() {
 
   }
 
+  function clearLinks(){
+    setMyLinks([]);
+    setEmptyList(true);
+    localStorage.clear();
+  }
+
+  function openLink(urlEncurtada){
+    window.open(urlEncurtada, '_blank').focus();
+  }
+
   return (
     <div className='links-container'>
       <div className='links-header'>
@@ -69,8 +81,11 @@ function Links() {
             <FiLink size={18} color='#FFF' />
             {link.long_url}
           </button>
-          <button className='link-delete' onClick={() => handleDelete(link.id)}>
+          <button title="Excluir" className='link-icon' onClick={() => handleDelete(link.id)}>
             <FiTrash size={24} color='#FF5454' />
+          </button>
+          <button title="Visitar" className='link-icon' onClick={() => openLink(link.link)}>
+            <FiExternalLink size={24} color='#FF5454' />
           </button>
         </div>
 
@@ -84,6 +99,14 @@ function Links() {
       )
 
       }
+
+{!emptyList && (
+        <div className='links-button'>
+          <button className='button-clear' onClick={clearLinks}><FaRegTrashAlt /> Limpar links</button>
+        </div>
+
+
+      )}
 
 
 

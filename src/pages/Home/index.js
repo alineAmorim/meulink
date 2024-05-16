@@ -24,13 +24,11 @@ function Home() {
             })
 
            setData(response.data)
-
            saveLink('@encurtaLink', response.data)
-           setLink()
 
            setShowModal(true)
         } catch {
-            alert('erro')
+            alert('URL inválida.\nTente novamente!')
          
         }
         setLink('')
